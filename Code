@@ -1,0 +1,29 @@
+$Domain = ""
+$TLD = ""
+
+$From = ""
+$To = ""
+$Subject = ""
+$Body = ""
+
+$FileName = ""
+
+$Object =  Get-Service | Where-Object {$_.Status -eq 'Running'} | Select-Object Status,Name,DisplayName
+
+$SMTPserver = "relay.mail.$Domain.$TLD"
+$Port = 25
+
+$SMTPClient = New-Object Net.Mail.SMTPclient($SMTPserver,$Port)
+
+
+
+$Email = New-Object Net.Mail.MailMessage($From, $To, $Subject, $Body)
+$AttachmentObject = $Object | ConvertTo-Csv -NoTypeInformation
+$AttachmentName = $FileName + ".csv"
+
+$Attachment = [System.Net.Mail.Attachment]::CreateAttachmentFromString($AttachmentOutput -join [environment]::NewLine,$AttachmentName)
+
+$Email.Attachments.Add($Attachment)
+$Email.IsBodyHTML = $True
+
+$SMTPClient.send($Email)
