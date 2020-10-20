@@ -15,8 +15,6 @@ $Port = 25
 
 $SMTPClient = New-Object Net.Mail.SMTPclient($SMTPserver,$Port)
 
-
-
 $Email = New-Object Net.Mail.MailMessage($From, $To, $Subject, $Body)
 $AttachmentObject = $Object | ConvertTo-Csv -NoTypeInformation
 $AttachmentName = $FileName + ".csv"
