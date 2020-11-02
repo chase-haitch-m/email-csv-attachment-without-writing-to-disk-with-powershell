@@ -37,7 +37,7 @@ Function Send-MailMessageCsvAttachment {
         [Int32]$Port
     )
     
-    $SMTPClient = New-Object Net.Mail.SMTPclient($SmtpServer,$Port)
+    $SMTPClient = New-Object Net.Mail.SMTPclient($SmtpServer, $Port)
     
     $Email = New-Object Net.Mail.MailMessage($From, $To, $Subject, $Body)
 
